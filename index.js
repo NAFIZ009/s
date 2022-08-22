@@ -1,13 +1,18 @@
 let playerName=[];
+
 //fun for select player
 function selectPlayer(e) {
-    playerName.unshift(e.target.parentElement.children[0].innerText);
+    if(playerName.length<5){
+        playerName.unshift(e.target.parentElement.children[0].innerText);
+    }
+    // console.log("inside",playerName)
 }
 //adding player
 [...document.getElementsByClassName('player-selection-btn')].forEach(element => {
     element.addEventListener('click', (e) => {
         selectPlayer(e);
         addPlayerName(e);
+        
     });
 });
 //add player fun
@@ -16,7 +21,7 @@ function addPlayerName(e) {
     if([...parent.children].some(element => element.getAttribute('id')=="noticeOfList")){
         parent.firstElementChild.remove();
     }
-    if (playerName.length<=5) {
+    if (parent.children.length<5) {
         let newOne=document.createElement('li');
         newOne.setAttribute('class','mt-3');
         newOne.innerText=playerName[0];
@@ -42,6 +47,7 @@ function playerPriceCal() {
         document.getElementById('playerPriceIndex').value='';
     }else{
         let parentElement = document.getElementById('priceRes');
+        console.log(playerName.length)
         let ammount=parseInt(document.getElementById("playerPriceIndex").value)*playerName.length;
         parentElement.innerText = ammount;
     }
